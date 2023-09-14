@@ -81,7 +81,20 @@ int main(int argc, char* argv[]) {
                     }
                 }
                 else {
-                    std::wcout << pe32.th32ProcessID << ": " << pe32.szExeFile << std::endl;
+                    std::wstring exeName = pe32.szExeFile;
+                    std::transform(exeName.begin(), exeName.end(), exeName.begin(), towlower);
+
+                    // If a search query was provided, only print processes that match the query
+                    if (!searchQuery.empty()) {
+                        if (exeName.find(searchQuery) != std::wstring::npos) {
+                            // Print only matching process details
+                            std::wcout << pe32.th32ProcessID << ": " << pe32.szExeFile << std::endl;
+                        }
+                    }
+                    else {
+                        // If no search query was provided, print all process details
+                        std::wcout << pe32.th32ProcessID << ": " << pe32.szExeFile << std::endl;
+                    }
                 }
             }
 
