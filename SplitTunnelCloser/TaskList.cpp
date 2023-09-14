@@ -80,6 +80,9 @@ int main(int argc, char* argv[]) {
                         delete[] cmdLine;
                     }
                 }
+                else {
+                    std::wcout << pe32.th32ProcessID << ": " << pe32.szExeFile << std::endl;
+                }
             }
 
             CloseHandle(hProcess);
